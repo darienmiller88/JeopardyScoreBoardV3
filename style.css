@@ -1,0 +1,429 @@
+/* ------------------------------------------------------------ */
+/* Tokens                                                         */
+/* ------------------------------------------------------------ */
+:root {
+  --bg-deep:      #070B34;
+  --bg-mid:       #121C63;
+  --bg-glow-a:    #3854D6;
+  --bg-glow-b:    #6E2E8C;
+
+  --gold:         #E7B93F;
+  --gold-bright:  #F5D479;
+
+  --text-primary:   #F3F5FC;
+  --text-secondary: #A8B1DA;
+  --text-muted:     #7A83AE;
+
+  --glass-fill:    rgba(255, 255, 255, 0.065);
+  --glass-fill-hi: rgba(255, 255, 255, 0.12);
+  --glass-border:  rgba(255, 255, 255, 0.16);
+
+  --plus:        #3FBE93;
+  --plus-bright: #55D9AB;
+  --minus:       #E1546E;
+  --minus-bright:#F06E86;
+
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  --shadow-soft: 0 8px 30px rgba(4, 6, 30, 0.45);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ------------------------------------------------------------ */
+/* Reset & base                                                   */
+/* ------------------------------------------------------------ */
+* { box-sizing: border-box; }
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  color: var(--text-primary);
+  background:
+    radial-gradient(ellipse 900px 600px at 12% -10%, var(--bg-glow-a) 0%, transparent 55%),
+    radial-gradient(ellipse 800px 700px at 100% 15%, var(--bg-glow-b) 0%, transparent 50%),
+    radial-gradient(ellipse 1000px 800px at 50% 120%, #1A2A8F 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg-deep) 0%, #0A1044 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--bg-deep);
+}
+
+/* ------------------------------------------------------------ */
+/* Navbar                                                         */
+/* ------------------------------------------------------------ */
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 22px clamp(20px, 5vw, 56px);
+  background: rgba(10, 14, 56, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--glass-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+  letter-spacing: 0.01em;
+  color: var(--text-primary);
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.navbar__title::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: -6px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+}
+
+/* ------------------------------------------------------------ */
+/* Layout                                                         */
+/* ------------------------------------------------------------ */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 48px) clamp(20px, 5vw, 56px) 80px;
+}
+
+/* ------------------------------------------------------------ */
+/* Add player                                                     */
+/* ------------------------------------------------------------ */
+.add-player {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  padding: clamp(18px, 3vw, 26px);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: clamp(28px, 4vw, 40px);
+}
+
+.add-player__label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.add-player__row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.add-player__input {
+  flex: 1 1 220px;
+  min-width: 0;
+  background: rgba(6, 9, 38, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 13px 16px;
+  font-size: 1rem;
+  font-family: var(--font-ui);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.add-player__input::placeholder {
+  color: var(--text-muted);
+}
+
+.add-player__input:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(231, 185, 63, 0.25);
+}
+
+.add-player__error {
+  min-height: 1.2em;
+  margin: 10px 2px 0;
+  font-size: 0.85rem;
+  color: var(--minus-bright);
+}
+
+/* ------------------------------------------------------------ */
+/* Buttons                                                         */
+/* ------------------------------------------------------------ */
+.btn {
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 13px 22px;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn--gold {
+  background: linear-gradient(160deg, var(--gold-bright), var(--gold));
+  color: #241705;
+  box-shadow: 0 4px 16px rgba(231, 185, 63, 0.3);
+}
+
+.btn--gold:hover {
+  filter: brightness(1.06);
+}
+
+.btn:focus-visible,
+.score-btn:focus-visible,
+.mini-btn:focus-visible,
+.card__remove:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------ */
+/* Board / grid                                                   */
+/* ------------------------------------------------------------ */
+.board {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+@media (min-width: 620px) {
+  .board {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 980px) {
+  .board {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+}
+
+.board__empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  padding: 40px 20px;
+  border: 1px dashed var(--glass-border);
+  border-radius: var(--radius-lg);
+}
+
+/* ------------------------------------------------------------ */
+/* Score card                                                     */
+/* ------------------------------------------------------------ */
+.card {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
+  padding: 18px 18px 20px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  animation: card-in 0.28s ease;
+}
+
+@keyframes card-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  word-break: break-word;
+  line-height: 1.25;
+}
+
+.card__remove {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.card__remove:hover {
+  background: var(--minus);
+  border-color: var(--minus);
+  color: #fff;
+}
+
+.card__score-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card__score {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 5vw, 2.1rem);
+  text-align: center;
+  color: var(--gold-bright);
+  margin: 0rem 1rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.card__score.is-negative {
+  color: var(--minus-bright);
+}
+
+.score-btn {
+  border: none;
+  border-radius: var(--radius-md);
+  height: 52px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-ui);
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.score-btn:active {
+  transform: scale(0.95);
+}
+
+.score-btn__amount {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.score-btn--plus {
+  background: linear-gradient(160deg, var(--plus-bright), var(--plus));
+}
+
+.score-btn--minus {
+  background: linear-gradient(160deg, var(--minus-bright), var(--minus));
+}
+
+.score-btn:hover {
+  filter: brightness(1.08);
+}
+
+.card__custom-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  gap: 8px;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--glass-border);
+}
+
+.card__custom-input {
+  width: 100%;
+  min-width: 0;
+  background: rgba(6, 9, 38, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 9px 6px;
+  outline: none;
+  -moz-appearance: textfield;
+}
+
+.card__custom-input::-webkit-outer-spin-button,
+.card__custom-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.card__custom-input:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(231, 185, 63, 0.22);
+}
+
+.mini-btn {
+  width: 40px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-fill-hi);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, transform 0.12s ease;
+}
+
+.mini-btn:active {
+  transform: scale(0.93);
+}
+
+.mini-btn--plus:hover {
+  background: var(--plus);
+  border-color: var(--plus);
+}
+
+.mini-btn--minus:hover {
+  background: var(--minus);
+  border-color: var(--minus);
+}
+
+/* ------------------------------------------------------------ */
+/* Small screens fine-tuning                                      */
+/* ------------------------------------------------------------ */
+@media (max-width: 380px) {
+  .score-btn { font-size: 0.9rem; }
+  .card__score { font-size: 1.5rem; }
+}
